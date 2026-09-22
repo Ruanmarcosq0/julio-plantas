@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Flores, plantas e presentes preparados com carinho pela Julio Plantas.">
+  <meta name="theme-color" content="#073b2d">
+  <title>Julio Plantas | Flores que marcam momentos</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23073b2d'/%3E%3Cpath d='M32 47c0-17 8-27 20-31-1 14-8 25-20 31Zm0 0c0-13-7-21-20-24 1 13 8 21 20 24Z' fill='%23f4c95d'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --forest: #073b2d;
+      --forest-2: #0d563f;
+      --cream: #fffaf0;
+      --paper: #ffffff;
+      --ink: #153129;
+      --muted: #62736d;
+      --sun: #f4c95d;
+      --pink: #e34572;
+      --line: rgba(7, 59, 45, .14);
+      --shadow: 0 24px 60px rgba(7, 59, 45, .13);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    body.menu-open { overflow: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .skip-link { position: absolute; left: -9999px; }
+    .skip-link:focus { left: 16px; top: 16px; z-index: 100; background: white; padding: 12px 18px; border-radius: 8px; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 250, 240, .9);
+      border-bottom: 1px solid rgba(7, 59, 45, .08);
+      backdrop-filter: blur(18px);
+    }
+    .nav { min-height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: -.03em; }
+    .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px; background: var(--forest); color: var(--sun); }
+    .brand-mark svg { width: 24px; height: 24px; }
+    .nav-links { display: flex; align-items: center; gap: 30px; font-size: .92rem; font-weight: 700; }
+    .nav-links a:not(.nav-cta):hover { color: var(--pink); }
+    .nav-cta, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .nav-cta, .button-primary { background: var(--pink); color: white; box-shadow: 0 12px 26px rgba(227, 69, 114, .22); }
+    .nav-cta:hover, .button-primary:hover { transform: translateY(-2px); background: #cb2f5c; }
+    .button-secondary { border-color: rgba(255,255,255,.4); color: white; background: rgba(255,255,255,.08); }
+    .button-secondary:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); }
+    .menu-button { display: none; border: 0; background: var(--forest); color: white; width: 46px; height: 46px; border-radius: 14px; cursor: pointer; }
+
+    .hero { position: relative; overflow: hidden; background: var(--forest); color: white; }
+    .hero::before { content: ""; position: absolute; width: 360px; height: 360px; border-radius: 50%; left: -180px; top: -180px; border: 1px solid rgba(244,201,93,.25); box-shadow: 0 0 0 48px rgba(244,201,93,.04), 0 0 0 96px rgba(244,201,93,.025); }
+    .hero-grid { min-height: 690px; display: grid; grid-template-columns: 1.08fr .92fr; gap: 72px; align-items: center; padding-block: 72px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--sun); font-size: .78rem; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; letter-spacing: -.045em; line-height: .98; margin: 0; }
+    h1 { margin-top: 24px; max-width: 720px; font-size: clamp(3.3rem, 7vw, 6.4rem); font-weight: 500; }
+    h1 em { color: var(--sun); font-weight: 500; }
+    .hero-copy > p { max-width: 610px; margin: 28px 0 34px; color: rgba(255,255,255,.78); font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 25px; color: rgba(255,255,255,.66); font-size: .9rem; }
+    .hero-note span { width: 9px; height: 9px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 0 5px rgba(244,201,93,.12); }
+    .hero-visual { position: relative; }
+    .hero-frame { position: relative; overflow: hidden; border-radius: 44% 44% 22px 22px; min-height: 540px; background: #174f3f; box-shadow: 0 38px 80px rgba(0,0,0,.28); }
+    .hero-frame img { width: 100%; height: 100%; min-height: 540px; object-fit: cover; }
+    .hero-card { position: absolute; left: -35px; bottom: 28px; width: min(255px, 66%); padding: 20px; border-radius: 18px; color: var(--forest); background: var(--sun); box-shadow: var(--shadow); transform: rotate(-2deg); }
+    .hero-card strong { display: block; font-family: Georgia, serif; font-size: 1.35rem; line-height: 1.1; }
+    .hero-card small { display: block; margin-top: 6px; font-weight: 700; }
+
+    section { padding-block: 110px; }
+    .section-heading { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; align-items: end; margin-bottom: 48px; }
+    .section-heading h2 { font-size: clamp(2.7rem, 5vw, 4.8rem); color: var(--forest); }
+    .section-heading p { margin: 0; max-width: 540px; color: var(--muted); }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { min-height: 350px; padding: 30px; border-radius: var(--radius); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); background: var(--paper); transition: transform .22s ease, box-shadow .22s ease; }
+    .card:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
+    .card:nth-child(2) { background: var(--forest); color: white; border-color: var(--forest); }
+    .card:nth-child(3) { background: var(--sun); border-color: var(--sun); }
+    .card-number { font-size: .82rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; opacity: .66; }
+    .card h3 { font-family: Georgia, serif; font-size: 2.15rem; line-height: 1.04; margin: 20px 0 13px; }
+    .card p { margin: 0; opacity: .75; }
+    .card-link { margin-top: 34px; font-weight: 850; display: inline-flex; align-items: center; gap: 8px; }
+    .card-link span { transition: transform .2s ease; }
+    .card:hover .card-link span { transform: translateX(5px); }
+
+    .occasion { background: white; }
+    .occasion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .occasion-panel { border-radius: 34px; padding: 48px; min-height: 520px; }
+    .occasion-main { background: #e8f0ec; display: flex; flex-direction: column; justify-content: space-between; }
+    .occasion-main h2 { color: var(--forest); font-size: clamp(3rem, 5vw, 5rem); max-width: 560px; }
+    .occasion-main p { max-width: 490px; color: var(--muted); }
+    .occasion-list { background: var(--pink); color: white; display: grid; align-content: center; }
+    .occasion-item { display: flex; gap: 20px; align-items: center; padding: 25px 0; border-bottom: 1px solid rgba(255,255,255,.24); }
+    .occasion-item:last-child { border-bottom: 0; }
+    .occasion-item b { width: 44px; height: 44px; flex: 0 0 44px; display: grid; place-items: center; border-radius: 50%; color: var(--pink); background: white; }
+    .occasion-item strong { display: block; font-size: 1.08rem; }
+    .occasion-item span { color: rgba(255,255,255,.76); }
+
+    .steps { background: var(--cream); }
+    .step-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 56px; }
+    .step { position: relative; padding-top: 28px; border-top: 2px solid var(--forest); }
+    .step b { color: var(--pink); font-size: .83rem; letter-spacing: .14em; }
+    .step h3 { margin: 18px 0 10px; font-family: Georgia, serif; font-size: 1.65rem; }
+    .step p { margin: 0; color: var(--muted); }
+
+    .cta-wrap { padding-top: 0; }
+    .cta { overflow: hidden; position: relative; border-radius: 38px; background: var(--forest); color: white; padding: 64px; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+    .cta::after { content: ""; position: absolute; right: -90px; bottom: -170px; width: 360px; height: 360px; border-radius: 50%; border: 60px solid rgba(244,201,93,.1); }
+    .cta h2 { position: relative; z-index: 1; max-width: 690px; font-size: clamp(2.8rem, 5vw, 4.8rem); }
+    .cta .button { position: relative; z-index: 1; flex: 0 0 auto; }
+
+    footer { padding: 46px 0 30px; background: #05291f; color: white; }
+    .footer-grid { display: grid; grid-template-columns: 1.3fr .7fr .7fr; gap: 50px; }
+    .footer-brand p { max-width: 400px; color: rgba(255,255,255,.62); }
+    .footer-title { margin: 0 0 14px; color: var(--sun); font-size: .75rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+    .footer-list { display: grid; gap: 8px; color: rgba(255,255,255,.78); }
+    .copyright { margin-top: 44px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.5); font-size: .86rem; }
+
+    .whatsapp-float { position: fixed; right: 22px; bottom: 22px; z-index: 40; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: #25d366; color: #082a1f; box-shadow: 0 16px 35px rgba(0,0,0,.24); font-weight: 950; font-size: .78rem; }
+    .whatsapp-float:hover { transform: scale(1.05); }
+
+    @media (max-width: 900px) {
+      .menu-button { display: grid; place-items: center; }
+      .nav-links { display: none; position: fixed; inset: 82px 0 auto; background: var(--cream); padding: 28px 20px 34px; flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--line); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 8px 0; }
+      .hero-grid, .section-heading, .occasion-grid { grid-template-columns: 1fr; }
+      .hero-grid { gap: 48px; padding-block: 56px 80px; }
+      .hero-copy { text-align: center; }
+      .hero-copy > p { margin-inline: auto; }
+      .hero-actions, .hero-note { justify-content: center; }
+      .hero-visual { width: min(520px, 100%); margin-inline: auto; }
+      .hero-frame, .hero-frame img { min-height: 500px; }
+      .section-heading { gap: 24px; }
+      .cards, .step-grid { grid-template-columns: 1fr; }
+      .card { min-height: 280px; }
+      .occasion-panel { min-height: auto; }
+      .occasion-main { gap: 90px; }
+      .step-grid { gap: 30px; }
+      .cta { padding: 48px 34px; flex-direction: column; align-items: flex-start; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 28px, 1180px); }
+      section { padding-block: 78px; }
+      .hero-grid { min-height: 0; }
+      h1 { font-size: clamp(3.15rem, 15vw, 4.5rem); }
+      .hero-frame, .hero-frame img { min-height: 390px; }
+      .hero-card { left: 12px; bottom: 15px; }
+      .occasion-panel { padding: 32px 25px; border-radius: 26px; }
+      .occasion-main { gap: 70px; }
+      .cta { border-radius: 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+      .whatsapp-float { right: 15px; bottom: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#inicio" aria-label="Julio Plantas — início">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M12 13C7 13 4 10 4 5c5 0 8 3 8 8Z"/><path d="M12 17c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg>
+        </span>
+        <span>Julio Plantas</span>
+      </a>
+      <button class="menu-button" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#colecoes">Coleções</a>
+        <a href="#ocasioes">Ocasiões</a>
+        <a href="#como-pedir">Como pedir</a>
+        <a class="nav-cta" href="https://wa.me/?text=Olá%21%20Quero%20montar%20um%20pedido%20na%20Julio%20Plantas." target="_blank" rel="noopener">Fazer pedido</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Floricultura & presentes</span>
+          <h1>Flores que ficam na <em>memória.</em></h1>
+          <p>Buquês, plantas e presentes montados com cuidado para transformar aniversários, encontros e pequenos gestos em momentos especiais.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://wa.me/?text=Olá%21%20Quero%20montar%20um%20pedido%20na%20Julio%20Plantas." target="_blank" rel="noopener">Montar meu pedido <span aria-hidden="true">→</span></a>
+            <a class="button button-secondary" href="#colecoes">Ver opções</a>
+          </div>
+          <div class="hero-note"><span aria-hidden="true"></span> Atendimento próximo e montagem artesanal</div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-frame">
+            <img src="hero-flor.jpg" alt="Buquê artesanal colorido com flores e folhagens" width="1200" height="900">
+          </div>
+          <div class="hero-card"><strong>Feito à mão, pensado para alguém.</strong><small>Cada composição é única.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="colecoes">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow" style="color:var(--pink)">Escolha seu presente</span>
+            <h2>Um carinho para cada momento.</h2>
+          </div>
+          <p>Você conta a ocasião, as cores e o estilo da pessoa. A Julio Plantas prepara uma composição com personalidade, dentro do seu orçamento.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div><span class="card-number">01 · Buquês</span><h3>Flores frescas e cheias de presença</h3><p>Composições românticas, delicadas ou vibrantes para surpreender de verdade.</p></div>
+            <a class="card-link" href="https://wa.me/?text=Olá%21%20Quero%20ver%20as%20opções%20de%20buquês." target="_blank" rel="noopener">Pedir opções <span>→</span></a>
+          </article>
+          <article class="card">
+            <div><span class="card-number">02 · Plantas</span><h3>Verde para deixar a casa mais viva</h3><p>Plantas para presentear, decorar e criar um cantinho com mais natureza.</p></div>
+            <a class="card-link" href="https://wa.me/?text=Olá%21%20Quero%20ver%20as%20opções%20de%20plantas." target="_blank" rel="noopener">Pedir opções <span>→</span></a>
+          </article>
+          <article class="card">
+            <div><span class="card-number">03 · Kits</span><h3>Presentes completos e personalizados</h3><p>Flores combinadas com cartões e pequenos mimos para tornar o gesto ainda mais especial.</p></div>
+            <a class="card-link" href="https://wa.me/?text=Olá%21%20Quero%20montar%20um%20kit%20para%20presente." target="_blank" rel="noopener">Montar um kit <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="occasion" id="ocasioes">
+      <div class="container occasion-grid">
+        <div class="occasion-panel occasion-main">
+          <h2>Não precisa ser uma data especial.</h2>
+          <p>Flores dizem “lembrei de você”, “obrigado”, “estou aqui” e muitas outras coisas que às vezes faltam em palavras.</p>
+        </div>
+        <div class="occasion-panel occasion-list">
+          <div class="occasion-item"><b>01</b><div><strong>Aniversários</strong><span>Presentes com cor e personalidade.</span></div></div>
+          <div class="occasion-item"><b>02</b><div><strong>Amor & carinho</strong><span>Para surpreender sem esperar uma data.</span></div></div>
+          <div class="occasion-item"><b>03</b><div><strong>Agradecimentos</strong><span>Um gesto bonito para quem fez diferença.</span></div></div>
+          <div class="occasion-item"><b>04</b><div><strong>Casa nova</strong><span>Plantas para celebrar um novo começo.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps" id="como-pedir">
+      <div class="container">
+        <span class="eyebrow" style="color:var(--pink)">Simples e rápido</span>
+        <h2 style="font-size:clamp(2.8rem,5vw,4.7rem);color:var(--forest);max-width:700px;margin-top:20px">Seu presente em três passos.</h2>
+        <div class="step-grid">
+          <article class="step"><b>PASSO 01</b><h3>Conte a ocasião</h3><p>Diga para quem é, a data e o estilo que você imagina.</p></article>
+          <article class="step"><b>PASSO 02</b><h3>Escolha os detalhes</h3><p>Combinamos cores, tamanho, mensagem e faixa de valor.</p></article>
+          <article class="step"><b>PASSO 03</b><h3>Deixe com a gente</h3><p>Preparamos tudo com cuidado e confirmamos os próximos passos.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-wrap" id="contato">
+      <div class="container">
+        <div class="cta">
+          <h2>Qual momento você quer transformar hoje?</h2>
+          <a class="button button-primary" href="https://wa.me/?text=Olá%21%20Quero%20fazer%20um%20pedido%20na%20Julio%20Plantas." target="_blank" rel="noopener">Chamar no WhatsApp <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="#inicio"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V9"/><path d="M12 13C7 13 4 10 4 5c5 0 8 3 8 8Z"/><path d="M12 17c5 0 8-3 8-8-5 0-8 3-8 8Z"/></svg></span><span>Julio Plantas</span></a><p>Flores, plantas e presentes preparados com cuidado para criar memórias bonitas.</p></div>
+        <div><p class="footer-title">Navegação</p><div class="footer-list"><a href="#colecoes">Coleções</a><a href="#ocasioes">Ocasiões</a><a href="#como-pedir">Como pedir</a></div></div>
+        <div><p class="footer-title">Atendimento</p><div class="footer-list"><a href="https://wa.me/?text=Olá%21%20Quero%20falar%20com%20a%20Julio%20Plantas." target="_blank" rel="noopener">WhatsApp</a><span>Pedidos sob consulta</span><span>Montagem artesanal</span></div></div>
+      </div>
+      <div class="copyright">© <span id="year"></span> Julio Plantas. Todos os direitos reservados.</div>
+    </div>
+  </footer>
+
+  <a class="whatsapp-float" href="https://wa.me/?text=Olá%21%20Quero%20fazer%20um%20pedido%20na%20Julio%20Plantas." target="_blank" rel="noopener" aria-label="Falar com a Julio Plantas pelo WhatsApp">Whats</a>
+
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const navLinks = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      menuButton.textContent = isOpen ? '×' : '☰';
+      document.body.classList.toggle('menu-open', isOpen);
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Abrir menu');
+      menuButton.textContent = '☰';
+      document.body.classList.remove('menu-open');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
