@@ -4,8 +4,9 @@ Landing page responsiva para uma floricultura, criada em HTML, CSS e JavaScript.
 
 ## Publicação
 
-O projeto está preparado para publicação automática na Vercel a partir da branch `main`.
+O projeto está conectado ao GitHub e à Vercel para publicação automática.
 
+- Site: https://julio-plantas.vercel.app
 - Alterações na `main`: produção
 - Outras branches e pull requests: prévia
 - Pasta publicada: `dist`
